@@ -29,21 +29,19 @@ docker run -it yandex/clickhouse-client --host ${serverip|hostip}
 
 CREATE TABLE wikistat
 (
-    date Date,
-    time DateTime,
     project String,
     subproject String,
-    path String,
     hits UInt64,
     size UInt64
-) ENGINE = MergeTree(date, (path, time), 8192);
+) ENGINE = Log;
 
 ```
 
 * insert  data
 
 ```code
-insert into default.wikistat(project,path,hits) values('demoaopp','demoiaopo',343);
+docker run -i yandex/clickhouse-client  --format_csv_delimiter="|" --host ${serverhost} --query="INSERT INTO d
+efault.wikistat3 FORMAT CSV" < ./data/info.csv
 ```
 
 * select result
@@ -55,4 +53,4 @@ select * from default.wikistat;
 ```
 
 ## some images
-![image](./images/WX20181031-190411@2x.png)
+![image](./images/WX20181031-212927@2x.png)
